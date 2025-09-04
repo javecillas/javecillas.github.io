@@ -1,9 +1,65 @@
-<html>
-  <head>
-    <title>Javier Avecillas</title>
-  </head>
-  <body>
-    <h1>Welcome to my personal site!</h1>
-    <p>This will live at javieravecillas.com</p>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Javier Avecillas</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    background-color: black; /* black bars for vertical video */
+    font-family: 'Arial', Times, serif;
+  }
+
+  /* Video styling */
+  #bg-video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    height: 100%;  /* fill screen height */
+    width: auto;   /* maintain aspect ratio */
+    transform: translate(-50%, -50%);
+    z-index: 0;
+  }
+
+  /* Overlay text */
+  .overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.7);
+    z-index: 1;
+  }
+
+  .overlay-text h1 {
+    font-size: 4em;
+    margin: 0.2em 0;
+  }
+
+  .overlay-text p {
+    font-size: 2em;
+  }
+</style>
+</head>
+<body>
+
+<!-- Video -->
+<video autoplay muted loop id="bg-video">
+  <source src="assets/homepage_video.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<!-- Overlay text -->
+<div class="overlay-text">
+  <h1>Javier A. Avecillas-Leon</h1>
+  <p>Page Under Construction</p>
+</div>
+
+</body>
 </html>
