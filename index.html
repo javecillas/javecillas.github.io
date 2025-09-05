@@ -46,7 +46,21 @@
     align-items:center;
     z-index:10;
   }
-  nav .logo { color:white; font-weight:bold; font-size:1.2em; }
+  nav .logo {
+    display: flex;
+    align-items: center;   /* vertical centering */
+    gap: 15px;              /* space between logo and JAAL */
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em;
+    line-height: 1;        /* prevents text from adding extra height */
+  }
+
+  nav .logo-img {
+    height: 1.4em;         /* match roughly the text height */
+    width: auto;
+    display: block;        /* removes inline baseline gap */
+  }
   nav ul { list-style:none; display:flex; gap:30px; }
   nav ul li a {
     color:white; text-decoration:none;
@@ -146,9 +160,20 @@
     nav ul.show {
       opacity:1; pointer-events:auto; transform:translateX(0);
     }
-    nav ul li { width:100%; margin:15px 0; display:flex; justify-content:space-between; align-items:center; }
-    nav ul li a { font-size:1.5em; }
-    nav ul li::after { content:"\2794"; color:white; font-size:1.5em; }
+    nav ul li { width:100%; margin:1px 0; display:flex; justify-content:space-between; align-items:center; }
+    nav ul li a {
+      display: flex;
+      justify-content: space-between; /* text left, arrow right */
+      align-items: center;
+      width: 100%; /* so the arrow can sit at the far right */
+      font-size: 1.0em; /* your tab text size */
+    }
+    nav ul li a::after {
+      content:"\276F";  /* ➔ arrow */
+      color:white;
+      font-size:1.2em;
+      margin-left:12px;
+    }
     .hero { padding:0 20px; text-align:center; }
     .hero-title { font-size:1.6em; }
     .hero-subtitle { font-size:1.1em; }
@@ -174,9 +199,12 @@
 
 <!-- Navigation -->
 <nav>
-  <div class="logo">JAAL</div>
+  <div class="logo">
+    <img src="assets/logo.png" alt="Logo" class="logo-img">
+    <span>JAAL</span>
+  </div>
   <ul id="nav-links">
-    <li><a href="#">Home</a></li>
+    <li><a href="index.html">Home</a></li>
     <li><a href="research.html">Research</a></li>
     <li><a href="blog.html">Blog</a></li>
     <li><a href="contact.html">Contact</a></li>
