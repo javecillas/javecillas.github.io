@@ -5,135 +5,156 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Javier Avecillas</title>
 <style>
-  /* Reset and basic styles */
-  * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Verdana", sans-serif; }
-  body, html { height: 100%; }
+  * { margin:0; padding:0; box-sizing:border-box; font-family:"Verdana", sans-serif; }
+  body, html { height:100%; }
 
   /* Desktop video */
   #desktop-video {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    height: auto;
-    width: auto;
+    top:50%; left:50%;
     transform: translate(-50%, -50%);
-    z-index: 2;
-    object-fit: cover;
-    display: block;
+    z-index:2;
+    object-fit:cover;
+    display:block;
   }
 
   /* Mobile video */
   #mobile-video {
     position: fixed;
-    top: 50%;
-    left: 50%;
-    height: 100vh;
-    width: auto;
+    top:50%; left:50%;
+    height:100vh; width:auto;
     transform: translate(-50%, -50%);
-    z-index: 2;
-    object-fit: cover;
-    display: none;
+    z-index:2;
+    object-fit:cover;
+    display:none;
   }
 
-  /* Overlay for readability */
   .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: black;
-    z-index: 0;
+    position:absolute;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:black;
+    z-index:0;
   }
 
-  /* Navigation */
   nav {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    padding: 20px 50px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 10;
+    position:fixed;
+    top:0; width:100%;
+    padding:20px 50px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:10;
   }
-
-  nav .logo { color: white; font-weight: bold; font-size: 1.2em; }
-  nav ul { list-style: none; display: flex; gap: 30px; }
+  nav .logo { color:white; font-weight:bold; font-size:1.2em; }
+  nav ul { list-style:none; display:flex; gap:30px; }
   nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 1em;
-    padding: 10px 15px;
-    border: 2px solid transparent;
-    border-radius: 50px;
-    transition: all 0.5s ease;
+    color:white; text-decoration:none;
+    font-size:1em; padding:10px 15px;
+    border-radius:50px; transition:all 0.5s ease;
   }
-  nav ul li a:hover {
-    border-color: white;
-    background: rgb(250, 250, 250);
-    color: #111;
-    transform: scale(1.1);
+  @media(min-width:769px){
+    nav ul li a:hover {
+      background:rgba(255,255,255,0.2);
+      transform:scale(1.05);
+    }
   }
 
-  /* Hamburger menu button */
+  /* Hamburger container with background */
   .hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
+    width: 40px;
+    height: 40px;
+    position: relative;
     cursor: pointer;
+    display: none;
+    z-index:30;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.1);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.3s ease;
   }
-  .hamburger div {
-    width: 25px;
+  .hamburger:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  /* Hamburger lines */
+  .hamburger .line {
+    position: absolute;
+    left: 7px; right: 7px;
     height: 3px;
     background: white;
+    transition: opacity 0.3s ease;
+    border-radius: 2px;
   }
+  .hamburger .line:nth-child(1) { top: 10px; }
+  .hamburger .line:nth-child(2) { top: 18px; }
+  .hamburger .line:nth-child(3) { top: 26px; }
 
-  /* Hero section */
-  .hero {
-    position: relative;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-left: 50px;
-    color: white;
-    z-index: 5;
-  }
-  .hero-title { font-size: 3em; margin-bottom: 10px; color: white; }
-  .hero-subtitle { font-size: 1.5em; margin: 2px 0; color: white; }
-  .hero-university { font-size: 1.2em; margin: 2px 0 15px 0; color: white; }
-  .hero-summary { font-size: 1em; margin-top: 20px; max-width: 600px; color: rgb(220,220,220); }
-
-  /* Footer */
-  footer {
+  /* X lines (hidden by default) */
+  .hamburger .xline {
     position: absolute;
-    bottom: 20px;
-    left: 50px;
-    color: white;
-    font-size: 0.9em;
+    top: 50%; left: 50%;
+    width: 70%;
+    height: 3px;
+    background: white;
+    transform-origin: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 2px;
+  }
+  .hamburger .xline:nth-child(4) { transform: translate(-50%, -50%) rotate(45deg); }
+  .hamburger .xline:nth-child(5) { transform: translate(-50%, -50%) rotate(-45deg); }
+
+  /* When active → show X, hide hamburger */
+  .hamburger.active .line { opacity: 0; }
+  .hamburger.active .xline { opacity: 1; }
+
+  /* Hero */
+  .hero {
+    position:relative; height:100vh;
+    display:flex; flex-direction:column;
+    justify-content:center;
+    padding-left:50px; color:white; z-index:5;
+  }
+  .hero-title { font-size:3em; margin-bottom:10px; }
+  .hero-subtitle { font-size:1.5em; }
+  .hero-university { font-size:1.2em; margin:2px 0 15px 0; }
+  .hero-summary { font-size:1em; margin-top:20px; max-width:600px; color:rgb(220,220,220); }
+
+  footer {
+    position:absolute; bottom:20px; left:50px;
+    color:white; font-size:0.9em;
   }
 
-  /* Responsive for mobile */
-  @media (max-width: 768px) {
+  @media(max-width:768px){
+    .hamburger { display:flex; }
+
     nav ul {
-      display: none;
-      position: absolute;
-      top: 70px;
-      right: 20px;
+      position: fixed; top:70px; right:0;
+      width:100%; height:calc(100% - 70px);
       flex-direction: column;
-      background: rgba(0,0,0,0.8);
-      padding: 15px 20px;
-      border-radius: 5px;
+      background: rgba(0,0,0,0.95);
+      padding:30px 20px;
+      margin:0; z-index:20;
+      display:flex; opacity:0;
+      pointer-events:none;
+      transform:translateX(100%);
+      transition: transform 0.7s ease, opacity 0.7s ease;
     }
-    nav ul.show { display: flex; }
-    .hamburger { display: flex; }
-    .hero { padding-left: 20px; padding-right: 20px; text-align: center; }
-    .hero-title { font-size: 1.6em; }
-    .hero-subtitle { font-size: 1.1em; }
-    .hero-university { font-size: 1em; }
-    .hero-summary { font-size: 0.9em; }
-    footer { left: 50%; transform: translateX(-50%); }
+    nav ul.show {
+      opacity:1; pointer-events:auto; transform:translateX(0);
+    }
+    nav ul li { width:100%; margin:15px 0; display:flex; justify-content:space-between; align-items:center; }
+    nav ul li a { font-size:1.5em; }
+    nav ul li::after { content:"\2794"; color:white; font-size:1.5em; }
+    .hero { padding:0 20px; text-align:center; }
+    .hero-title { font-size:1.6em; }
+    .hero-subtitle { font-size:1.1em; }
+    .hero-university { font-size:1em; }
+    .hero-summary { font-size:0.9em; }
+    footer { left:50%; transform:translateX(-50%); }
   }
 </style>
 </head>
@@ -156,18 +177,20 @@
   <div class="logo">JAAL</div>
   <ul id="nav-links">
     <li><a href="#">Home</a></li>
-    <li><a href="#">Research</a></li>
-    <li><a href="#">Blog</a></li>
-    <li><a href="#">Contact</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="contact.html">Contact</a></li>
   </ul>
   <div class="hamburger" id="hamburger">
-    <div></div>
-    <div></div>
-    <div></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="xline"></div>
+    <div class="xline"></div>
   </div>
 </nav>
 
-<!-- Hero Section -->
+<!-- Hero -->
 <section class="hero">
   <h1 class="hero-title">Javier A. Avecillas-Leon</h1>
   <p class="hero-subtitle">PhD(c) in Civil Engineering</p>
@@ -181,7 +204,9 @@
 <script>
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('nav-links');
+
   hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
     navLinks.classList.toggle('show');
   });
 </script>
