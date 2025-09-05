@@ -46,21 +46,48 @@
     align-items:center;
     z-index:10;
   }
+
+  /* Logo with animated JAAL */
   nav .logo {
     display: flex;
-    align-items: center;   /* vertical centering */
-    gap: 15px;              /* space between logo and JAAL */
+    align-items: center;
+    gap: 15px;
     color: white;
     font-weight: bold;
     font-size: 1.5em;
-    line-height: 1;        /* prevents text from adding extra height */
+    line-height: 1;
+  }
+  nav .logo-img {
+    height: 1.4em;
+    width: auto;
+    display: block;
   }
 
-  nav .logo-img {
-    height: 1.4em;         /* match roughly the text height */
-    width: auto;
-    display: block;        /* removes inline baseline gap */
+  /* Logo letters as individual spans */
+  .logo-text {
+    display: inline-block;
+    position: relative;
+    width: 6ch; /* compact spacing */
   }
+  .logo-text span {
+    position: absolute;
+    top: 50%;
+    left: 0; /* individual lefts stay as before */
+    transform: translateY(-50%);
+    transition: all 1s ease;
+    transform-origin: center;
+  }
+  .logo-text .J  { left: 0.0ch; }
+  .logo-text .A1 { left: 0.9ch; }
+  .logo-text .A2 { left: 2.2ch; }
+  .logo-text .L  { left: 3.4ch; }
+
+  /* swap + mirror class */
+  .logo-text.swap .J  { left: 3.4ch; transform: translateY(-50%) scaleX(-1); }
+  .logo-text.swap .A1 { left: 2.2ch; transform: translateY(-50%); }
+  .logo-text.swap .A2 { left: 0.9ch; transform: translateY(-50%); }
+  .logo-text.swap .L  { left: 0.0ch; transform: translateY(-50%) scaleX(-1); }
+
   nav ul { list-style:none; display:flex; gap:30px; }
   nav ul li a {
     color:white; text-decoration:none;
@@ -74,7 +101,7 @@
     }
   }
 
-  /* Hamburger container with background */
+  /* Hamburger container */
   .hamburger {
     width: 40px;
     height: 40px;
@@ -84,14 +111,11 @@
     z-index:30;
     border-radius: 10px;
     background: rgba(255,255,255,0.1);
-    display: none;
     justify-content: center;
     align-items: center;
     transition: background 0.3s ease;
   }
-  .hamburger:hover {
-    background: rgba(255,255,255,0.2);
-  }
+  .hamburger:hover { background: rgba(255,255,255,0.2); }
 
   /* Hamburger lines */
   .hamburger .line {
@@ -106,7 +130,6 @@
   .hamburger .line:nth-child(2) { top: 18px; }
   .hamburger .line:nth-child(3) { top: 26px; }
 
-  /* X lines (hidden by default) */
   .hamburger .xline {
     position: absolute;
     top: 50%; left: 50%;
@@ -121,7 +144,6 @@
   .hamburger .xline:nth-child(4) { transform: translate(-50%, -50%) rotate(45deg); }
   .hamburger .xline:nth-child(5) { transform: translate(-50%, -50%) rotate(-45deg); }
 
-  /* When active → show X, hide hamburger */
   .hamburger.active .line { opacity: 0; }
   .hamburger.active .xline { opacity: 1; }
 
@@ -144,7 +166,6 @@
 
   @media(max-width:768px){
     .hamburger { display:flex; }
-
     nav ul {
       position: fixed; top:70px; right:0;
       width:100%; height:calc(100% - 70px);
@@ -157,22 +178,13 @@
       transform:translateX(100%);
       transition: transform 0.7s ease, opacity 0.7s ease;
     }
-    nav ul.show {
-      opacity:1; pointer-events:auto; transform:translateX(0);
-    }
+    nav ul.show { opacity:1; pointer-events:auto; transform:translateX(0); }
     nav ul li { width:100%; margin:1px 0; display:flex; justify-content:space-between; align-items:center; }
     nav ul li a {
-      display: flex;
-      justify-content: space-between; /* text left, arrow right */
-      align-items: center;
-      width: 100%; /* so the arrow can sit at the far right */
-      font-size: 1.0em; /* your tab text size */
+      display: flex; justify-content: space-between; align-items: center; width: 100%; font-size: 1.0em;
     }
     nav ul li a::after {
-      content:"\276F";  /* ➔ arrow */
-      color:white;
-      font-size:1.2em;
-      margin-left:12px;
+      content:"\276F"; color:white; font-size:1.2em; margin-left:12px;
     }
     .hero { padding:0 20px; text-align:center; }
     .hero-title { font-size:1.6em; }
@@ -201,7 +213,12 @@
 <nav>
   <div class="logo">
     <img src="assets/logo.png" alt="Logo" class="logo-img">
-    <span>JAAL</span>
+    <div class="logo-text" id="logo-text">
+      <span class="J">J</span>
+      <span class="A1">A</span>
+      <span class="A2">A</span>
+      <span class="L">L</span>
+    </div>
   </div>
   <ul id="nav-links">
     <li><a href="index.html">Home</a></li>
@@ -236,6 +253,19 @@
   hamburger.addEventListener('click', () => {
     hamburger.classList.toggle('active');
     navLinks.classList.toggle('show');
+  });
+
+  // Trigger JAAL animation 3s after page load
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const logoText = document.getElementById('logo-text');
+      logoText.classList.add('swap');
+
+      // Swap back to original after 2s
+      setTimeout(() => {
+        logoText.classList.remove('swap');
+      }, 2000);
+    }, 3000);
   });
 </script>
 
