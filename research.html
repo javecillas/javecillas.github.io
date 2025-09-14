@@ -79,6 +79,48 @@
   .links a:hover {
     text-decoration:underline;
   }
+
+  /* Spotlight styling */
+  .spotlight {
+    background: rgba(20, 20, 20, 0.9);
+    border-left: 5px solid #66b3ff;
+    padding: 40px 20px;
+    margin-top: 40px;
+  }
+  .spotlight-item h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #66b3ff;
+  }
+  .spotlight-item p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+  }
+  .spotlight-item a {
+    display:inline-block;
+    padding:8px 16px;
+    background:#66b3ff;
+    color:white;
+    border-radius:4px;
+    text-decoration:none;
+    transition: background 0.3s ease;
+  }
+  .spotlight-item a:hover {
+    background:#3385cc;
+  }
+
+  /* Publications list */
+  .publications ul {
+    list-style: none;
+    padding: 0;
+  }
+  .publications li {
+    margin-bottom: 15px;
+    line-height: 1.6;
+  }
+  .publications em {
+    color:#ccc;
+  }
 </style>
 </head>
 <body>
@@ -120,6 +162,41 @@
     <a href="https://www.researchgate.net/profile/Javier-Avecillas-Leon?ev=hdr_xprf">ResearchGate</a>
     <!-- <a href="#">CV (PDF)</a> -->
   </div>
+</section>
+
+<!-- Spotlight Section -->
+<section class="content spotlight">
+  <h2>Research Spotlight</h2>
+  <div class="spotlight-item">
+    <h3>Efficient Multiscale Modeling for Fatigue Life Prediction</h3>
+    <p>
+      My doctoral work introduces enriched finite element methods (GFEMgl, GFEM3) 
+      for short crack modeling and fatigue life prediction in notched components. 
+      This framework enables accurate S–N curve estimation by combining fracture mechanics 
+      and multiscale modeling approaches.
+    </p>
+    <a href="https://doi.org/10.xxxx/ijfrac.xxx" target="_blank">Read Full Paper</a>
+  </div>
+</section>
+
+<!-- Publications Section -->
+<section class="content publications">
+  <h2>Journal Publications</h2>
+  <ul>
+    <li>
+      Avecillas J., et al. (2025). 
+      <em>Efficient Multiscale Modeling for Fatigue Life Prediction in Notched Components.</em> 
+      <strong>International Journal of Fracture</strong>. 
+      <a href="https://doi.org/10.xxxx/ijfrac.xxx" target="_blank">DOI</a>
+    </li>
+    <li>
+      Avecillas J., et al. (2024). 
+      <em>Phase-field approaches for modeling short cracks under cyclic loading.</em> 
+      <strong>Engineering Fracture Mechanics</strong>. 
+      <a href="https://doi.org/10.xxxx/engfrac.xxx" target="_blank">DOI</a>
+    </li>
+    <!-- Add more publications as needed -->
+  </ul>
 </section>
 
 </body>
