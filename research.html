@@ -24,10 +24,16 @@
   }
 
   nav {
-    position:fixed; top:0; width:100%;
-    padding:20px 50px;
-    display:flex; justify-content:space-between; align-items:center;
-    z-index:10;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    background: rgba(0,0,0,0.9); /* solid/transparent background */
+    backdrop-filter: blur(6px);  /* optional for glass effect */
   }
   nav .logo { color:white; font-weight:bold; font-size:1.2em; }
   nav ul { list-style:none; display:flex; gap:30px; }
