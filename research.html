@@ -6,9 +6,8 @@
 <title>Research - Javier Avecillas</title>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; font-family:"Verdana", sans-serif; }
-  body, html { height:100%; }
+  body, html { height:100%; background:#000; color:white; }
 
-  /* Background video */
   #research-video {
     position: fixed;
     top:50%; left:50%;
@@ -17,23 +16,17 @@
     z-index:1;
     object-fit:cover;
   }
-
   .overlay {
-    position:absolute;
-    top:0; left:0;
+    position:absolute; top:0; left:0;
     width:100%; height:100%;
-    background:black;
-    opacity:0.6;
+    background:black; opacity:0.6;
     z-index:2;
   }
 
   nav {
-    position:fixed;
-    top:0; width:100%;
+    position:fixed; top:0; width:100%;
     padding:20px 50px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+    display:flex; justify-content:space-between; align-items:center;
     z-index:10;
   }
   nav .logo { color:white; font-weight:bold; font-size:1.2em; }
@@ -43,95 +36,74 @@
     font-size:1em; padding:10px 15px;
     border-radius:50px; transition:all 0.3s ease;
   }
-  nav ul li a:hover {
-    background:rgba(255,255,255,0.2);
-  }
+  nav ul li a:hover { background:rgba(255,255,255,0.2); }
 
-  /* Hero / header section */
   .hero {
     position:relative; height:100vh;
-    display:flex; flex-direction:column;
-    justify-content:center; align-items:center;
+    display:flex; flex-direction:column; justify-content:center; align-items:center;
     color:white; z-index:5; text-align:center;
   }
-  .hero-title { font-size:2.5em; margin-bottom:15px; }
-  .hero-subtitle { font-size:1.2em; max-width:700px; color:rgb(220,220,220); }
+  .hero-title { font-size:2.8em; margin-bottom:15px; }
+  .hero-subtitle { font-size:1.3em; max-width:700px; color:rgb(220,220,220); }
 
-  /* Research content section */
   .content {
-    position:relative;
-    z-index:5;
-    background:rgba(0,0,0,0.8);
-    color:white;
-    padding:60px 20px;
+    position:relative; z-index:5;
+    background:rgba(0,0,0,0.9);
+    color:white; padding:60px 20px;
   }
-  .content h2 { font-size:1.8em; margin-bottom:20px; }
+  .content h2 { font-size:2em; margin-bottom:20px; }
   .content p { max-width:800px; margin:10px auto; line-height:1.6; }
 
-  .links {
-    margin-top:30px;
+  /* Spotlight grid */
+  .spotlight-grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap:30px;
+    margin-top:40px;
   }
-  .links a {
-    color:#66b3ff;
-    text-decoration:none;
-    margin-right:20px;
+  .spotlight-card {
+    background:rgba(30,30,30,0.95);
+    border-left:5px solid #66b3ff;
+    border-radius:10px;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
   }
-  .links a:hover {
-    text-decoration:underline;
+  .spotlight-card img, .spotlight-card video {
+    width:100%; height:200px; object-fit:cover;
   }
+  .spotlight-card .card-body { padding:20px; text-align:justify; }
+  .spotlight-card h3 { color:#66b3ff; margin-bottom:10px; }
+  .spotlight-card p { margin-bottom:15px; line-height:1.5; }
+  .spotlight-card a {
+    display:inline-block; margin-right:10px; margin-bottom:10px;
+    padding:8px 14px; background:#66b3ff; color:white;
+    border-radius:5px; text-decoration:none;
+    transition:background 0.3s ease;
+  }
+  .spotlight-card a:hover { background:#3385cc; }
 
-  /* Spotlight styling */
-  .spotlight {
-    background: rgba(20, 20, 20, 0.9);
-    border-left: 5px solid #66b3ff;
-    padding: 40px 20px;
-    margin-top: 40px;
-  }
-  .spotlight-item h3 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    color: #66b3ff;
-  }
-  .spotlight-item p {
-    margin-bottom: 15px;
-    line-height: 1.6;
-  }
-  .spotlight-item a {
-    display:inline-block;
-    padding:8px 16px;
-    background:#66b3ff;
-    color:white;
-    border-radius:4px;
-    text-decoration:none;
-    transition: background 0.3s ease;
-  }
-  .spotlight-item a:hover {
-    background:#3385cc;
-  }
-
-  /* Publications list */
-  .publications ul {
-    list-style: none;
-    padding: 0;
-  }
+  /* Publications */
+  .publications ul { list-style:none; padding:0; }
   .publications li {
-    margin-bottom: 15px;
-    line-height: 1.6;
+    margin-bottom:25px;
+    background:rgba(20,20,20,0.9);
+    padding:20px;
+    border-radius:8px;
+    line-height:1.5;
   }
-  .publications em {
-    color:#ccc;
-  }
+  .publications strong { color:#66b3ff; }
+  .publications em { color:#ccc; }
+  audio { margin-top:10px; width:100%; }
 </style>
 </head>
 <body>
 
-<!-- Background video -->
 <video autoplay muted loop playsinline id="research-video">
   <source src="assets/research_video.mp4" type="video/mp4">
 </video>
 <div class="overlay"></div>
 
-<!-- Navigation -->
 <nav>
   <div class="logo">JAAL</div>
   <ul>
@@ -142,62 +114,94 @@
   </ul>
 </nav>
 
-<!-- Hero -->
 <section class="hero">
   <h1 class="hero-title">My Research</h1>
   <p class="hero-subtitle">
-    Exploring multiscale numerical simulations with enriched finite elements, 
-    fracture mechanics, and fatigue life prediction.
+    My work focuses on multiscale numerical simulations with enriched finite elements, 
+    fracture mechanics, and fatigue life prediction in structural components.
   </p>
-</section>
-
-<!-- Content -->
-<section class="content">
-  <h2>Publications & Links</h2>
-  <p>
-    Here are some useful links to explore my academic work and contributions.
-  </p>
-  <div class="links">
-    <a href="https://share.google/6fOcpt5WOmI9PWequ" target="_blank">Google Scholar</a>
-    <a href="https://www.researchgate.net/profile/Javier-Avecillas-Leon?ev=hdr_xprf">ResearchGate</a>
-    <!-- <a href="#">CV (PDF)</a> -->
-  </div>
 </section>
 
 <!-- Spotlight Section -->
-<section class="content spotlight">
+<section class="content">
   <h2>Research Spotlight</h2>
-  <div class="spotlight-item">
-    <h3>Efficient Multiscale Modeling for Fatigue Life Prediction</h3>
-    <p>
-      My doctoral work introduces enriched finite element methods (GFEMgl, GFEM3) 
-      for short crack modeling and fatigue life prediction in notched components. 
-      This framework enables accurate S–N curve estimation by combining fracture mechanics 
-      and multiscale modeling approaches.
-    </p>
-    <a href="https://doi.org/10.xxxx/ijfrac.xxx" target="_blank">Read Full Paper</a>
-  </div>
+  <p>Highlighted projects combining enriched finite elements and multiscale modeling.</p>
+  <div class="spotlight-grid" id="spotlight-grid"></div>
 </section>
 
 <!-- Publications Section -->
 <section class="content publications">
   <h2>Journal Publications</h2>
-  <ul>
-    <li>
-      Avecillas J., et al. (2025). 
-      <em>Efficient Multiscale Modeling for Fatigue Life Prediction in Notched Components.</em> 
-      <strong>International Journal of Fracture</strong>. 
-      <a href="https://doi.org/10.xxxx/ijfrac.xxx" target="_blank">DOI</a>
-    </li>
-    <li>
-      Avecillas J., et al. (2024). 
-      <em>Phase-field approaches for modeling short cracks under cyclic loading.</em> 
-      <strong>Engineering Fracture Mechanics</strong>. 
-      <a href="https://doi.org/10.xxxx/engfrac.xxx" target="_blank">DOI</a>
-    </li>
-    <!-- Add more publications as needed -->
-  </ul>
+  <ul id="pub-list"></ul>
 </section>
+
+<script>
+const publications = [
+  {
+    authors: "<strong>Avecillas-Leon, J.</strong>, Singh, I., Duarte, C. A. (2025)",
+    title: "\Validation and improvements of a Generalized/eXtended finite element method for 3-D fatigue crack propagation",
+    journal: "International Journal of Fracture",
+    paperLink: "https://www.researchgate.net/publication/395400860_Validation_and_Improvements_of_a_GeneralizedeXtended_Finite_Element_Method_for_3-D_Fatigue_Crack_Propagation",
+    summary: "This paper develops a GFEM framework for simulating 3D fatigue crack propagation, using high-order p-hierarchical bases, explicit crack surfaces, and refined discretization strategies. Stress intensity factors are extracted via the Displacement Correlation Method, validated against experiments in mixed-mode, transition, and pipe-crack problems, with an algorithm to handle variable-amplitude loading.",
+    img: "assets/publications_cover/2025_Avecillas_GFEMFatigueValidation.png",
+    podcast: "assets/publications_podcast/2025_Avecillas_GFEMFatigueValidation.mp3",
+    spotlight: true
+  },  
+  {
+    authors: "Li, H., <strong>Avecillas-Leon, J.</strong>, Shauer, N., Duarte, C. A. (2022)",
+    title: "\A non-intrusive iterative generalized finite element method for multiscale coupling of 3-D solid and shell models",
+    journal: "Computer Methods in Applied Mechanics and Engineering",
+    paperLink: "https://doi.org/10.1016/j.cma.2022.115408",
+    summary: "This paper presents an iterative multiscale GFEM framework that couples 3D solid and shell models to capture interactions across structural scales. It integrates global shell, mesoscale, and local fine-scale models, solved using Abaqus and an in-house GFEM solver, with a staggered algorithm ensuring accuracy comparable to full 3D models at lower computational cost.",
+    img: "assets/publications_cover/2022_Li_CoupleShellSolidAbaqus.png",
+    podcast: null,
+    spotlight: true
+  },
+  {
+    authors: "<strong>Avecillas, J. A.</strong>, Eatherton, M. R. (2020)",
+    title: "Controlling out-of-plane buckling in shear-acting structural fuses through topology optimization",
+    journal: "Journal of Structural Engineering",
+    paperLink: "https://doi.org/10.1061/(ASCE)ST.1943-541X.0002692",
+    summary: "This study develops optimized shear-acting structural fuses that resist buckling while promoting local yielding. Using a genetic algorithm, new topologies are generated and analyzed with 2D and 3D finite element models, showing up to five times larger inelastic displacements compared to previous designs.",
+    img: "assets/publications_cover/2020_Avecillas_GenAlgoFuses.png",
+    podcast: null,
+    spotlight: false
+  }
+  // Add more publications here
+];
+
+// Populate spotlight cards
+const spotlightGrid = document.getElementById("spotlight-grid");
+publications.forEach(pub => {
+  if(pub.spotlight){
+    const card = document.createElement("div");
+    card.className = "spotlight-card";
+    card.innerHTML = `
+      <img src="${pub.img}" alt="Research Image">
+      <div class="card-body">
+        <h3>${pub.title}</h3>
+        <p>${pub.summary}</p>
+        <a href="${pub.paperLink}" target="_blank">Read Paper</a>
+        ${pub.podcast ? `<a href="${pub.podcast}" target="_blank">Podcast</a>` : `<a style="opacity:0.5">Podcast not available</span>`}
+      </div>
+    `;
+    spotlightGrid.appendChild(card);
+  }
+});
+
+// Populate publications list
+const pubList = document.getElementById("pub-list");
+publications.forEach(pub => {
+  const li = document.createElement("li");
+  li.innerHTML = `
+    ${pub.authors}<br>
+    <em>${pub.title}</em><br>
+    ${pub.journal}<br>
+    <a href="${pub.paperLink}" target="_blank">DOI</a>
+  `;
+  pubList.appendChild(li);
+});
+</script>
 
 </body>
 </html>
