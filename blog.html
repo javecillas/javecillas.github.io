@@ -5,23 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Blog - Javier Avecillas</title>
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; font-family:"Verdana", sans-serif; }
-  body, html { height:100%; }
+  * {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Verdana", sans-serif;
+  }
 
-  /* Background video */
+  body, html {
+    min-height:100%;
+    background:#000;
+    color:#fff;
+  }
+
   #blog-video {
     position: fixed;
-    top:50%; left:50%;
-    min-width:100%; min-height:100%;
+    top:50%;
+    left:50%;
+    min-width:100%;
+    min-height:100%;
     transform: translate(-50%, -50%);
     z-index:1;
     object-fit:cover;
   }
 
   .overlay {
-    position:absolute;
-    top:0; left:0;
-    width:100%; height:100%;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
     background:black;
     opacity:0.6;
     z-index:2;
@@ -29,57 +42,481 @@
 
   nav {
     position:fixed;
-    top:0; width:100%;
+    top:0;
+    width:100%;
     padding:20px 50px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    z-index:10;
+    z-index:20;
+    background:rgba(0,0,0,0.9);
+    backdrop-filter:blur(6px);
   }
-  nav .logo { color:white; font-weight:bold; font-size:1.2em; }
-  nav ul { list-style:none; display:flex; gap:30px; }
-  nav ul li a {
-    color:white; text-decoration:none;
-    font-size:1em; padding:10px 15px;
-    border-radius:50px; transition:all 0.3s ease;
-  }
-  nav ul li a:hover { background:rgba(255,255,255,0.2); }
 
-  /* Hero */
-  .hero {
-    position:relative; height:100vh;
-    display:flex; flex-direction:column;
-    justify-content:center; align-items:center;
-    color:white; z-index:5; text-align:center;
+  nav .logo {
+    display:flex;
+    align-items:center;
+    gap:15px;
+    color:white;
+    font-weight:bold;
+    font-size:1.5em;
+    line-height:1;
   }
-  .hero-title { font-size:2.5em; margin-bottom:15px; }
-  .hero-subtitle { font-size:1.2em; max-width:700px; color:rgb(220,220,220); }
+
+  nav .logo-img {
+    height:1.4em;
+    width:auto;
+    display:block;
+  }
+
+  .logo-text {
+    display:inline-block;
+    color:white;
+    font-weight:bold;
+    font-size:1em;
+    line-height:1;
+  }
+
+  nav ul {
+    list-style:none;
+    display:flex;
+    gap:30px;
+  }
+
+  nav ul li a {
+    color:white;
+    text-decoration:none;
+    font-size:1em;
+    padding:10px 15px;
+    border-radius:50px;
+    transition:all 0.3s ease;
+  }
+
+  nav ul li a:hover {
+    background:rgba(255,255,255,0.2);
+  }
+
+  .hamburger {
+    width:40px;
+    height:40px;
+    position:relative;
+    cursor:pointer;
+    display:none;
+    z-index:30;
+    border-radius:10px;
+    background: rgba(255,255,255,0.1);
+    justify-content:center;
+    align-items:center;
+    transition: background 0.3s ease;
+  }
+
+  .hamburger:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  .hamburger .line {
+    position:absolute;
+    left:7px;
+    right:7px;
+    height:3px;
+    background:white;
+    transition:opacity 0.3s ease;
+    border-radius:2px;
+  }
+
+  .hamburger .line:nth-child(1) { top:10px; }
+  .hamburger .line:nth-child(2) { top:18px; }
+  .hamburger .line:nth-child(3) { top:26px; }
+
+  .hamburger .xline {
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:70%;
+    height:3px;
+    background:white;
+    transform-origin:center;
+    opacity:0;
+    transition:opacity 0.3s ease;
+    border-radius:2px;
+  }
+
+  .hamburger .xline:nth-child(4) { transform: translate(-50%, -50%) rotate(45deg); }
+  .hamburger .xline:nth-child(5) { transform: translate(-50%, -50%) rotate(-45deg); }
+
+  .hamburger.active .line {
+    opacity:0;
+  }
+
+  .hamburger.active .xline {
+    opacity:1;
+  }
+
+  .hero {
+    position:relative;
+    z-index:5;
+    padding:120px 20px 30px 20px;
+  }
+
+  .hero-box {
+    max-width:1100px;
+    margin:0 auto;
+    background:rgba(10,10,10,0.78);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:18px;
+    padding:28px 32px;
+    box-shadow:0 14px 40px rgba(0,0,0,0.35);
+  }
+
+  .hero-title {
+    font-size:2.2em;
+    margin-bottom:10px;
+    line-height:1.15;
+  }
+
+  .hero-subtitle {
+    font-size:1em;
+    color:rgb(220,220,220);
+    line-height:1.6;
+    max-width:900px;
+  }
+
+  .content {
+    position:relative;
+    z-index:5;
+    padding:0 20px 70px 20px;
+  }
+
+  .content-inner {
+    max-width:1100px;
+    margin:0 auto;
+  }
+
+  .section-block {
+    background:rgba(10,10,10,0.82);
+    border:1px solid rgba(255,255,255,0.05);
+    border-radius:18px;
+    padding:30px;
+    margin-bottom:28px;
+    box-shadow:0 12px 32px rgba(0,0,0,0.30);
+  }
+
+  .section-block h2 {
+    font-size:1.9em;
+    margin-bottom:12px;
+  }
+
+  .section-intro {
+    color:#d8d8d8;
+    line-height:1.65;
+    margin-bottom:20px;
+  }
+
+  .blog-list {
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  }
+
+  .blog-item {
+    display:grid;
+    grid-template-columns:220px 1fr;
+    gap:22px;
+    align-items:start;
+    background:rgba(20,20,20,0.88);
+    border-radius:14px;
+    padding:20px;
+  }
+
+  .blog-media {
+    width:100%;
+    aspect-ratio:1 / 1;
+    overflow:hidden;
+    border-radius:12px;
+    background:rgba(255,255,255,0.04);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#9aa0a6;
+    font-size:0.95rem;
+    text-align:center;
+    padding:10px;
+  }
+
+  .blog-media img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+
+  .blog-text h3 {
+    color:#66b3ff;
+    margin-bottom:8px;
+    font-size:1.2rem;
+    line-height:1.35;
+  }
+
+  .blog-text p {
+    color:#f0f0f0;
+    line-height:1.65;
+    margin-bottom:14px;
+  }
+
+  .blog-meta {
+    color:#bdbdbd;
+    font-size:0.93rem;
+    margin-bottom:10px;
+  }
+
+  .blog-links {
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  .blog-links a {
+    display:inline-block;
+    padding:8px 14px;
+    background:#66b3ff;
+    color:white;
+    border-radius:6px;
+    text-decoration:none;
+    transition:background 0.3s ease;
+  }
+
+  .blog-links a:hover {
+    background:#3385cc;
+  }
+
+  .coming-soon {
+    color:#9aa0a6;
+    font-style:italic;
+  }
+
+  @media(max-width:900px){
+    .blog-item {
+      grid-template-columns:1fr;
+    }
+
+    .blog-media {
+      max-width:260px;
+      margin:0 auto;
+    }
+  }
+
+  @media(max-width:768px){
+    .hamburger {
+      display:flex;
+    }
+
+    nav {
+      padding:20px;
+    }
+
+    nav ul {
+      position: fixed;
+      top:70px;
+      right:0;
+      width:100%;
+      height:calc(100% - 70px);
+      flex-direction: column;
+      background: rgba(0,0,0,0.95);
+      padding:30px 20px;
+      margin:0;
+      display:flex;
+      opacity:0;
+      pointer-events:none;
+      transform:translateX(100%);
+      transition: transform 0.7s ease, opacity 0.7s ease;
+    }
+
+    nav ul.show {
+      opacity:1;
+      pointer-events:auto;
+      transform:translateX(0);
+    }
+
+    nav ul li {
+      width:100%;
+      margin:1px 0;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    nav ul li a {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      width:100%;
+      font-size:1em;
+    }
+
+    nav ul li a::after {
+      content:"\276F";
+      color:white;
+      font-size:1.2em;
+      margin-left:12px;
+    }
+
+    .hero {
+      padding:95px 20px 18px 20px;
+    }
+
+    .hero-box {
+      padding:22px 20px;
+    }
+
+    .hero-title {
+      font-size:1.7em;
+    }
+
+    .hero-subtitle {
+      font-size:0.95em;
+    }
+
+    .section-block {
+      padding:22px;
+    }
+  }
 </style>
 </head>
 <body>
 
-<!-- Background video -->
 <video autoplay muted loop playsinline id="blog-video">
   <source src="assets/blog_video.mp4" type="video/mp4">
 </video>
+
 <div class="overlay"></div>
 
-<!-- Navigation -->
 <nav>
-  <div class="logo">JAAL</div>
-  <ul>
+  <div class="logo">
+    <img src="assets/images/logos/logo_webpage_1.png" alt="Logo" class="logo-img">
+    <div class="logo-text">JAAL</div>
+  </div>
+
+  <ul id="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="research.html">Research</a></li>
     <li><a href="blog.html">Blog</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
+
+  <div class="hamburger" id="hamburger">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="xline"></div>
+    <div class="xline"></div>
+  </div>
 </nav>
 
-<!-- Hero -->
 <section class="hero">
-  <h1 class="hero-title">Blog</h1>
-  <p class="hero-subtitle">🚧 Page under construction 🚧</p>
+  <div class="hero-box">
+    <h1 class="hero-title">Blog</h1>
+    <p class="hero-subtitle">
+      Notes, projects, and visual work across two parallel interests:
+      computational mechanics and nature photography.
+    </p>
+  </div>
 </section>
+
+<section class="content">
+  <div class="content-inner">
+
+    <div class="section-block">
+      <h2>Coding</h2>
+      <p class="section-intro">
+        Posts on numerical methods, finite elements, fracture mechanics, implementation details,
+        debugging workflows, and computational tools used in research.
+      </p>
+
+      <div class="blog-list">
+        <div class="blog-item">
+          <div class="blog-media">Add cover image or thumbnail here</div>
+          <div class="blog-text">
+            <div class="blog-meta">Computational Mechanics · Coming soon</div>
+            <h3>GFEM, multiscale modeling, and fracture simulation notes</h3>
+            <p>
+              A space for technical write-ups on enriched finite elements, multiscale coupling,
+              solver implementation, and practical lessons from computational research.
+            </p>
+            <div class="blog-links">
+              <span class="coming-soon">Posts coming soon</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-item">
+          <div class="blog-media">Add cover image or thumbnail here</div>
+          <div class="blog-text">
+            <div class="blog-meta">Programming · Coming soon</div>
+            <h3>Code development, testing, and debugging workflows</h3>
+            <p>
+              Notes on implementation details, code structure, numerical verification, and
+              workflow improvements for research computing projects.
+            </p>
+            <div class="blog-links">
+              <span class="coming-soon">Posts coming soon</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Nature Photography</h2>
+      <p class="section-intro">
+        A visual collection of landscapes, wildlife, and outdoor moments, with short reflections
+        on place, light, and field observation.
+      </p>
+
+      <div class="blog-list">
+        <div class="blog-item">
+          <div class="blog-media">Add photo preview here</div>
+          <div class="blog-text">
+            <div class="blog-meta">Photography · Coming soon</div>
+            <h3>Field notes from nature photography</h3>
+            <p>
+              Selected images and short narratives from outdoor exploration, emphasizing natural
+              textures, changing light, and close attention to landscape details.
+            </p>
+            <div class="blog-links">
+              <span class="coming-soon">Posts coming soon</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="blog-item">
+          <div class="blog-media">Add photo preview here</div>
+          <div class="blog-text">
+            <div class="blog-meta">Photography · Coming soon</div>
+            <h3>Landscape and wildlife observations</h3>
+            <p>
+              A growing archive of photographs and observations from natural settings, organized
+              as visual essays rather than a standard gallery.
+            </p>
+            <div class="blog-links">
+              <span class="coming-soon">Posts coming soon</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('nav-links');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navLinks.classList.toggle('show');
+  });
+</script>
 
 </body>
 </html>
