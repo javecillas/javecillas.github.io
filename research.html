@@ -273,8 +273,8 @@
   }
 
   .spotlight-media {
-    width:100%;
-    aspect-ratio:1 / 1;
+    width:210px;
+    aspect-ratio:11 / 15;
     overflow:hidden;
     border-radius:12px;
     background:rgba(255,255,255,0.04);
@@ -552,43 +552,41 @@
     }
   });
 
-  const spotlightPapers = [
+  const papers = [
     {
+      authors: "<strong>Avecillas-Leon, J.</strong>, Singh, I., Duarte, C. A.",
       title: "Validation and improvements of a Generalized/eXtended finite element method for 3-D fatigue crack propagation",
       summary: "This paper develops a GFEM framework for simulating three-dimensional fatigue crack propagation using high-order p-hierarchical bases, explicit crack surfaces, and refined discretization strategies. Stress intensity factors are extracted with the Displacement Correlation Method and validated against experimental and numerical benchmarks.",
-      img: "assets/images/publications_cover/2025_Avecillas_GFEMFatigueValidation.png",
-      paperLink: "https://www.researchgate.net/publication/395400860_Validation_and_Improvements_of_a_GeneralizedeXtended_Finite_Element_Method_for_3-D_Fatigue_Crack_Propagation",
-      podcast: "assets/audio/publications_podcast/2025_Avecillas_GFEMFatigueValidation.mp3"
+      journal: "International Journal of Fracture",
+      img: "assets/images/publications_cover/intjournalfrac.png",
+      link: "https://www.researchgate.net/publication/395400860_Validation_and_Improvements_of_a_GeneralizedeXtended_Finite_Element_Method_for_3-D_Fatigue_Crack_Propagation",
+      podcast: "assets/audio/publications_podcast/2025_Avecillas_GFEMFatigueValidation.mp3",
+      spotlight: true
     },
     {
+      authors: "Li, H., <strong>Avecillas-Leon, J.</strong>, Shauer, N., Duarte, C. A.",
       title: "A non-intrusive iterative generalized finite element method for multiscale coupling of 3-D solid and shell models",
       summary: "This work presents an iterative multiscale GFEM framework that couples three-dimensional solid and shell models to capture structural interactions across scales. The method combines global shell analyses with local fine-scale enrichment while maintaining high accuracy at substantially reduced computational cost.",
-      img: "assets/images/publications_cover/2022_Li_CoupleShellSolidAbaqus.png",
-      paperLink: "https://doi.org/10.1016/j.cma.2022.115408",
-      podcast: "assets/audio/publications_podcast/2022_Li_CoupleShellSolidAbaqus.mp3"
-    }
-  ];
-
-  const additionalPapers = [
+      journal: "Computer Methods in Applied Mechanics and Engineering",
+      img: "assets/images/publications_cover/cmame.png",
+      link: "https://doi.org/10.1016/j.cma.2022.115408",
+      podcast: "assets/audio/publications_podcast/2022_Li_CoupleShellSolidAbaqus.mp3",
+      spotlight: true
+    },
     {
       authors: "<strong>Avecillas, J. A.</strong>, Eatherton, M. R. (2020)",
       title: "Controlling out-of-plane buckling in shear-acting structural fuses through topology optimization",
+      summary: "This paper develops optimized steel shear-fuse geometries that promote ductile local yielding while delaying buckling. Using a genetic algorithm and finite element analyses, the study identifies topologies that significantly improve stability and energy dissipation, allowing the fuses to sustain inelastic cyclic deformations up to five times larger than earlier designs before buckling.",
       journal: "Journal of Structural Engineering",
-      link: "https://doi.org/10.1061/(ASCE)ST.1943-541X.0002692"
-    },
-    {
-      authors: "Add your authors here",
-      title: "Add your third featured paper here",
-      journal: "Add journal here",
-      link: "https://scholar.google.com/"
-    },
-    {
-      authors: "Add your authors here",
-      title: "Add your fourth featured paper here",
-      journal: "Add journal here",
-      link: "https://scholar.google.com/"
+      img: "assets/images/publications_cover/journalstruceng.png",
+      link: "https://doi.org/10.1061/(ASCE)ST.1943-541X.0002692",
+      podcast: "",
+      spotlight: false
     }
   ];
+
+  const spotlightPapers = papers.filter(p => p.spotlight);
+  const regularPapers = papers.filter(p => !p.spotlight);
 
   const spotlightList = document.getElementById("spotlight-list");
 
@@ -601,9 +599,9 @@
       </div>
       <div class="spotlight-text">
         <h3>${pub.title}</h3>
-        <p>${pub.summary}</p>
+        <p>${pub.summary ?? ""}</p>
         <div class="spotlight-links">
-          <a href="${pub.paperLink}" target="_blank" rel="noopener">Read Paper</a>
+          <a href="${pub.link}" target="_blank" rel="noopener">Read Paper</a>
           ${pub.podcast ? `<a href="${pub.podcast}" target="_blank" rel="noopener">Podcast</a>` : `<a class="disabled">Podcast not available</a>`}
         </div>
       </div>
@@ -613,13 +611,13 @@
 
   const papersList = document.getElementById("papers-list");
 
-  additionalPapers.forEach(pub => {
+  regularPapers.forEach(pub => {
     const item = document.createElement("div");
     item.className = "paper-item";
     item.innerHTML = `
-      <div class="authors">${pub.authors}</div>
+      <div class="authors">${pub.authors ?? ""}</div>
       <h3>${pub.title}</h3>
-      <div class="journal">${pub.journal}</div>
+      <div class="journal">${pub.journal ?? ""}</div>
       <a href="${pub.link}" target="_blank" rel="noopener">View publication</a>
     `;
     papersList.appendChild(item);
