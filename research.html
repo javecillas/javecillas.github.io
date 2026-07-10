@@ -320,6 +320,24 @@
     background:#3385cc;
   }
 
+  .spotlight-links .ar-link {
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    background:#5b8def;
+  }
+
+  .spotlight-links .ar-link:hover {
+    background:#3f6fc7;
+  }
+
+  .spotlight-links .ar-link img {
+    width:18px;
+    height:18px;
+    object-fit:contain;
+    border-radius:3px;
+  }
+
   .spotlight-links a.disabled {
     opacity:0.5;
     pointer-events:none;
@@ -571,6 +589,7 @@
       img: "assets/images/publications_cover/intjournalfrac.png",
       link: "https://www.researchgate.net/publication/395400860_Validation_and_Improvements_of_a_GeneralizedeXtended_Finite_Element_Method_for_3-D_Fatigue_Crack_Propagation",
       podcast: "assets/audio/publications_podcast/2025_Avecillas_GFEMFatigueValidation.mp3",
+      arModel: "assets/ar/avecillas_2025_gfem_fatigue_validation.usdz",
       spotlight: true
     },
     {
@@ -613,6 +632,12 @@
         <div class="spotlight-links">
           <a href="${pub.link}" target="_blank" rel="noopener">Read Paper</a>
           ${pub.podcast ? `<a href="${pub.podcast}" target="_blank" rel="noopener">Podcast</a>` : `<a class="disabled">Podcast not available</a>`}
+          ${pub.arModel ? `
+            <a class="ar-link" rel="ar" href="${pub.arModel}">
+              <img src="${pub.img}" alt="">
+              <span>Visualize Results in AR</span>
+            </a>
+          ` : ""}
         </div>
       </div>
     `;
